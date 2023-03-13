@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:38:52 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/03/09 18:50:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:43:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	pb(No **stack_a, No **stack_b)
 	aux->next = *stack_b;
 	*stack_b = aux;
 	write(1, "pb\n", 3);
-	return ;
+	return ;void	ra(No **stack_a);
 }
 
 //2

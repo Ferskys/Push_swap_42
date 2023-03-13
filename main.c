@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:04:10 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/03/13 13:54:29 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:00:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,30 @@ int	check_argv(char *str)
 	}
 	return (1);
 }
+size_t	push_strlen(No *p)
+{
+	int	i;
 
-// void	sort(No **stack_a, No **stack_b, int argc)
-// {
-// 	if (push_strlen(*stack_a) <= 3 && push_strlen(*stack_a) > 1)
-// 		order_three(stack_a);
-// 	else if (push_strlen(*stack_a) == 4)
-// 		order_four(stack_a, stack_b);
-// 	else if (push_strlen(*stack_a) == 5)
-// 		order_five(stack_a, stack_b);
-// 	else
-// 		radix(stack_a, stack_b, argc - 1);
-// }
+	i = 0;
+	while (p != NULL)
+	{
+		i++;
+		p = p->next;
+	}
+	return (i);
+}
+
+void	execution(No **stack_a, No **stack_b, int argc)
+{
+	if (push_strlen(*stack_a) <= 3 && push_strlen(*stack_a) > 1)
+		order_three(stack_a);
+	else if (push_strlen(*stack_a) == 4)
+		order_four(stack_a, stack_b);
+	else if (push_strlen(*stack_a) == 5)
+		order_five(stack_a, stack_b);
+	else
+		radix(stack_a, stack_b, argc - 1);
+}
 
 int main(int argc, char **argv)
 {
@@ -70,7 +82,7 @@ int main(int argc, char **argv)
         inserir_fim(&stack_b, inserir_inicio(argv[i]));
         i++;
     }
-    // sort(&stack_a, &stack_b, argc);
+    execution(&stack_a, &stack_b, argc);
     // inserir_fim(&list, argv[3]);
     // if (argc < 2)
     //     return (0);
