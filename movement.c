@@ -6,16 +6,16 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:38:52 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/03/13 14:43:50 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:31:13 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(No **stack_a)
+void	sa(t_node **stack_a)
 {
-	No	*aux;
-	No	*aux2;
+	t_node	*aux;
+	t_node	*aux2;
 
 	aux = *stack_a;
 	aux2 = aux->next;
@@ -23,13 +23,12 @@ void	sa(No **stack_a)
 	aux->next = aux2->next;
 	aux2->next = aux;
 	write(1, "sa\n", 3);
-	return ;
 }
 
-void	sb(No **stack_b)
+void	sb(t_node **stack_b)
 {
-	No	*aux;
-	No	*aux2;
+	t_node	*aux;
+	t_node	*aux2;
 
 	aux = *stack_b;
 	aux2 = aux->next;
@@ -37,13 +36,12 @@ void	sb(No **stack_b)
 	aux->next = aux2->next;
 	aux2->next = aux;
 	write(1, "sb\n", 3);
-	return ;
 }
 
-void	ss(No **stack_a, No **stack_b)
+void	ss(t_node **stack_a, t_node **stack_b)
 {
-	No	*aux;
-	No	*aux2;
+	t_node	*aux;
+	t_node	*aux2;
 
 	aux = *stack_a;
 	aux2 = aux->next;
@@ -58,98 +56,26 @@ void	ss(No **stack_a, No **stack_b)
 	aux->next = aux2->next;
 	aux2->next = aux;
 	write(1, "ss\n", 3);
-	return ;
 }
 
-void	pa(No **stack_b, No **stack_a)
+void	pa(t_node **stack_a, t_node **stack_b)
 {
-	No	*aux;
+	t_node	*aux;
 
-	if (*stack_b == NULL)
-		return ;
-	aux = *stack_b;
-	*stack_b = (*stack_b)->next;
-	aux->next = *stack_a;
-	*stack_a = aux;
-	write(1, "pa\n", 3);
-	return ;
-}
-
-void	pb(No **stack_a, No **stack_b)
-{
-	No	*aux;
-
-	if (*stack_a == NULL)
-		return ;
-	aux = *stack_a;
-	*stack_a = (*stack_a)->next;
-	aux->next = *stack_b;
+	linker(stack_a, create_list2((*stack_b)->value));
+	aux = (*stack_b)->next;
+	free(*stack_b);
 	*stack_b = aux;
+	write(1, "pa\n", 3);
+}
+
+void	pb(t_node **stack_a, t_node **stack_b)
+{
+	t_node	*aux;
+
+	linker(stack_b, create_list2((*stack_a)->value));
+	aux = (*stack_a)->next;
+	free(*stack_a);
+	*stack_a = aux;
 	write(1, "pb\n", 3);
-	return ;void	ra(No **stack_a);
-}
-
-//2
-
-void	ra(No **stack_a)
-{
-	No	*last;
-	No	*first;
-
-	if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return ;
-	last = *stack_a;
-	first = *stack_a;
-	while (last->next != NULL)
-		last = last->next;
-	*stack_a = first->next;
-	first->next = NULL;
-	last->next = first;
-	write(1, "ra\n", 3);
-	return ;
-}
-
-void	rb(No **stack_b)
-{
-	No	*last;
-	No	*first;
-
-	if (*stack_b == NULL || (*stack_b)->next == NULL)
-		return ;
-	last = *stack_b;
-	first = *stack_b;
-	while (last->next != NULL)
-		last = last->next;
-	*stack_b = first->next;
-	first->next = NULL;
-	last->next = first;
-	write(1, "rb\n", 3);
-	return ;
-}
-
-void	rr(No **stack_a, No **stack_b)
-{
-	No	*last;
-	No	*first;
-
-	if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return ;
-	last = *stack_a;
-	first = *stack_a;
-	while (last->next != NULL)
-		last = last->next;
-	*stack_a = first->next;
-	first->next = NULL;
-	last->next = first;
-	if (*stack_b == NULL || (*stack_b)->next == NULL)
-		return ;
-	last = *stack_b;
-	first = *stack_b;
-	while (last->next != NULL)
-		last = last->next;
-	*stack_b = first->next;
-	first->next = NULL;
-	last->next = first;
-	write(1, "rr\n", 3);
-	return ;
 }

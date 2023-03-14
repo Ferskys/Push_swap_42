@@ -6,42 +6,75 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:46:17 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/03/09 14:00:25 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:59:40 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// void    radix_sort(int vetA[], int size)
-// {
-//     int     i;
-//     int     max;
-//     int     tmp[tam];
-//     int     count[10];
-//     int     expo;
+#include "push_swap.h"
 
-//     max = pegaMax(vetA, size);
-//     expo = 1;
-    
-//     while (max / expo > 0)
-//     {
-//         if (i = 0 && i < 10 && i++)
-//         {
-//             count[i] = 0;
-//         }
+int	size_binary(int max)
+{
+	int	i;
 
-//         else if (i = 0 && i < size && i++)
-//         {
-//             count[(vetA[i] / expo) % 10]++; 
-//         }
-        
-//         else if (i = 1 && i < size && i++)
-//         {
-//             count[i] += count [i - 1]; 
-//         }
-        
-//         else if (i = size - 1 && i >= 0 && i--)
-//         {
-//             count[(vetA[i] / expo)] = 0; 
-//         }
-//     }
-    
-// }
+	i = 0;
+	while (1)
+	{
+		if (!(max >> i))
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+t_node	*new_index(t_node **a)
+{
+	int		i;
+	t_node	*aux;
+	t_node	*aux_index;
+	t_node	*list_radix;
+
+	aux = *a;
+	list_radix = NULL;
+	while (aux != NULL)
+	{
+		i = 0;
+		aux_index = *a;
+		while (aux_index != NULL)
+		{
+			if (aux->value > aux_index->value)
+				i++;
+			aux_index = aux_index->next;
+		}
+		put_last(&list_radix, create_list2(i));
+		aux = aux->next;
+	}
+	return (list_radix);
+}
+
+void	radix(t_node **a, t_node **b, int max_index)
+{
+	int		i;
+	int		value;
+	int		max_binary;
+	t_node	*list_radix;
+
+	list_radix = new_index(a);
+	max_binary = size_binary(position_max(&list_radix, 0));
+	i = 0;
+	while (i < max_binary)
+	{
+		value = 0;
+		while (value < max_index)
+		{
+			if ((list_radix->value >> i) & 1)
+				ra(&list_radix);
+			else
+				pb(&list_radix, b);
+			value++;
+		}
+		while (*b)
+			pa(&list_radix, b);
+		i++;
+	}
+	ft_free(list_radix);
+}

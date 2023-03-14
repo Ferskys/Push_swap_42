@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:04:10 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/03/13 15:00:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:52:05 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,31 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	ft_isdigit(int c)
+void	ft_free(t_node *list)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
+	if (list)
+	{
+		ft_free(list->next);
+		free(list);
+	}
 }
 
-int	check_argv(char *str)
+void	checkers(char **argv)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (argv[i])
 	{
-		while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32 || str[i] == '-')
-			i++;
-		if (!ft_isdigit(str[i]))
-		{
-			write(1, "Error\n", 7);
-			return (0);
-		}
+		if (check_numbers(argv[i]) == 0)
+			exit(0);
+		if (check_max_min(argv[i]) == 0)
+			exit(0);
 		i++;
 	}
-	return (1);
 }
-size_t	push_strlen(No *p)
+
+size_t	push_strlen(t_node *p)
 {
 	int	i;
 
@@ -53,7 +52,7 @@ size_t	push_strlen(No *p)
 	return (i);
 }
 
-void	execution(No **stack_a, No **stack_b, int argc)
+void	execution(t_node **stack_a, t_node **stack_b, int argc)
 {
 	if (push_strlen(*stack_a) <= 3 && push_strlen(*stack_a) > 1)
 		order_three(stack_a);
@@ -65,26 +64,30 @@ void	execution(No **stack_a, No **stack_b, int argc)
 		radix(stack_a, stack_b, argc - 1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    No *stack_a;
-    No *stack_b;
-    int i;
+	t_node	*stack_a;
+	t_node	*stack_b;
+	int		i;
 
-    stack_a = NULL;
-    stack_b = NULL;	
-	if(argc > 2)
+	i = 1;
+	stack_a = NULL;
+	stack_b = NULL;
+	if (argc < 2)
 		return (0);
-    while(argv[i])
-    {
-		if (check_argv(argv[i]) == 0)
-			return (0);
-        inserir_fim(&stack_b, inserir_inicio(argv[i]));
-        i++;
-    }
-    execution(&stack_a, &stack_b, argc);
-    // inserir_fim(&list, argv[3]);
-    // if (argc < 2)
-    //     return (0);
-    return (0);
+	checkers(argv + 1);
+	while (argv[i])
+	{
+		put_last(&stack_a, create_list(argv[i]));
+		i++;
+	}
+	if (check_error(&stack_a) == 0)
+	{
+		ft_free(stack_a);
+		return (0);
+	}
+	execution(&stack_a, &stack_b, argc);
+	ft_free(stack_a);
+	ft_free(stack_b);
+	return (0);
 }

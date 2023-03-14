@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/08 23:48:51 by fsuomins          #+#    #+#              #
-#    Updated: 2023/02/02 14:04:55 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/03/14 17:12:16 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRCS =  ft_isalpha.c \
 		ft_split.c \
 		ft_itoa.c \
 		ft_printf.c \
-		utils.c
+		utils.c \
+		ft_atoi_push.c
 		
 INCLUDEH = .
 OBJS = $(patsubst %.c, %.o, $(SRCS)) #trocando um certo padrão pór outro (.c por .o em todos os arquivos do SRCS)
